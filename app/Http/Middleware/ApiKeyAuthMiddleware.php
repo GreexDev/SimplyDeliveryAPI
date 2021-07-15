@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class ExampleMiddleware
+class ApiKeyAuthMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,6 +15,11 @@ class ExampleMiddleware
      */
     public function handle($request, Closure $next)
     {
+        // Verify API Key
+        if ($request->input('api_key') != 'ApiKeyExample') {
+            return response()->json("Wrong API Key",403);
+        }
+
         return $next($request);
     }
 }

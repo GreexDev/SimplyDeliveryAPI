@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
-use Dotenv\Exception\ValidationException;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class ItemController extends Controller
 {
@@ -20,7 +20,7 @@ class ItemController extends Controller
      */
     private function checkInteger($id): void
     {
-        if (!is_int($id)) {
+        if (!is_numeric($id)) {
             throw new Exception("The given ID is not an integer.", 400);
         }
     }
@@ -39,7 +39,7 @@ class ItemController extends Controller
         $item = Item::find($id);
         // Check if Item exist
         if (!$item) {
-            throw new Exception("No item found with the following ID : " . $id . ".");
+            throw new Exception("No item found with the following ID : " . $id . ".", 404);
         }
         return $item;
     }
@@ -66,7 +66,7 @@ class ItemController extends Controller
             return response()->json([
                 "message" => "Error when getting items.",
                 "details" => $exception->getMessage()
-            ], $exception->getCode() ?? 500);
+            ], $exception->getCode() != null && $exception->getCode() != 0 ? $exception->getCode() : 500);
         }
     }
 
@@ -92,7 +92,7 @@ class ItemController extends Controller
             return response()->json([
                 "message" => "Error when getting item.",
                 "details" => $exception->getMessage()
-            ], $exception->getCode() ?? 500);
+            ], $exception->getCode() != null && $exception->getCode() != 0 ? $exception->getCode() : 500);
         }
     }
 
@@ -131,13 +131,13 @@ class ItemController extends Controller
             return response()->json([
                 "message" => "Error when validating the data.",
                 "details" => $validationException->getMessage()
-            ], $validationException->getCode() ?? 400);
+            ], 400);
         } catch (Exception $exception) {
             // If Exception return error
             return response()->json([
                 "message" => "Error when creating item.",
                 "details" => $exception->getMessage()
-            ], $exception->getCode() ?? 500);
+            ], $exception->getCode() != null && $exception->getCode() != 0 ? $exception->getCode() : 500);
         }
     }
 
@@ -182,13 +182,13 @@ class ItemController extends Controller
             return response()->json([
                 "message" => "Error when validating the data.",
                 "details" => $validationException->getMessage()
-            ], $validationException->getCode() ?? 400);
+            ], 400);
         } catch (Exception $exception) {
             // If Exception return error
             return response()->json([
                 "message" => "Error when updating item.",
                 "details" => $exception->getMessage()
-            ], $exception->getCode() ?? 500);
+            ], $exception->getCode() != null && $exception->getCode() != 0 ? $exception->getCode() : 500);
         }
     }
 
@@ -219,7 +219,7 @@ class ItemController extends Controller
             return response()->json([
                 "message" => "Error when deleting item.",
                 "details" => $exception->getMessage()
-            ], $exception->getCode() ?? 500);
+            ], $exception->getCode() != null && $exception->getCode() != 0 ? $exception->getCode() : 500);
         }
     }
 

@@ -25,7 +25,7 @@ $app = new Laravel\Lumen\Application(
 
 // $app->withFacades();
 
-// $app->withEloquent();
+$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -79,6 +79,10 @@ $app->configure('app');
 // $app->routeMiddleware([
 //     'auth' => App\Http\Middleware\Authenticate::class,
 // ]);
+
+ $app->routeMiddleware([
+     'api_key' => App\Http\Middleware\ApiKeyAuthMiddleware::class,
+ ]);
 
 /*
 |--------------------------------------------------------------------------

@@ -17,6 +17,10 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group(["prefix" => "/api"], function () use ($router){
-    $router->get('/items',[\App\Http\Controllers\ItemController::class,'index']);
+$router->group(["prefix" => "/api", "middleware" => ["api_key"]], function () use ($router){
+    $router->get('/items',['uses' => '\App\Http\Controllers\ItemController@index']);
+    $router->get('/items/{id}',['uses' => '\App\Http\Controllers\ItemController@show']);
+    $router->post('/items',['uses' => '\App\Http\Controllers\ItemController@store']);
+    $router->put('/items/{id}',['uses' => '\App\Http\Controllers\ItemController@update']);
+    $router->delete('/items/{id}',['uses' => '\App\Http\Controllers\ItemController@delete']);
 });
