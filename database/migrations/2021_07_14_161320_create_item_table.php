@@ -16,12 +16,12 @@ class CreateItemTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->boolean('vegetarian');
-            $table->boolean('vegan');
-            $table->boolean('glutenfree');
-            $table->boolean('sweet');
-            $table->boolean('salty');
-            $table->enum('spicy_level',[0,1,2,3]);
+            $table->boolean('vegetarian')->default(false);
+            $table->boolean('vegan')->default(false);
+            $table->boolean('glutenfree')->default(false);
+            $table->boolean('sweet')->default(false);
+            $table->boolean('salty')->default(false);
+            $table->enum('spicy_level',[0,1,2,3])->default(0);
             $table->timestamps();
         });
     }
