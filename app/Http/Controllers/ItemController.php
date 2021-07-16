@@ -18,7 +18,7 @@ class ItemController extends Controller
      * @param $id
      * @throws Exception
      */
-    private function checkInteger($id): void
+    public function checkInteger($id): void
     {
         if (!is_numeric($id)) {
             throw new Exception("The given ID is not an integer.", 400);
@@ -33,7 +33,7 @@ class ItemController extends Controller
      * @return Item
      * @throws Exception
      */
-    private function checkIfItemExist($id): Item
+    public function checkIfItemExist($id): Item
     {
         // Get Item
         $item = Item::find($id);
@@ -197,7 +197,7 @@ class ItemController extends Controller
      * @param $id
      * @return JsonResponse
      */
-    public function delete($id): JsonResponse
+    public function destroy($id): JsonResponse
     {
         try {
             // Check ID value

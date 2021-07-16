@@ -4,12 +4,26 @@
 namespace ItemController;
 
 
-class IndexTest extends \TestCase
+class UnitTest extends \TestCase
 {
     /**
-     * Test index route
+     * Test checkInteger function
      */
-    public function testIndex()
+    public function testCheckInteger()
+    {
+        // Request
+        $response = $this->get('/api/items?api_key=notTheGoodOne');
+
+        // Assert status
+        $response->assertResponseStatus(403);
+        // Assert Json
+        $response->seeJson(["Wrong API Key"]);
+    }
+
+    /**
+     * Test checkIfItemExist function
+     */
+    public function testCheckIfItemExist()
     {
         // Create fake Items
         $item = $this->createItem('1');
@@ -32,20 +46,5 @@ class IndexTest extends \TestCase
                 "spicy_level",
             ]
             ]);
-    }
-
-    /**
-     * Test index route
-     * Wrong Api Key
-     */
-    public function testIndexWrongAPIKey()
-    {
-        // Request
-        $response = $this->get('/api/items?api_key=notTheGoodOne');
-
-        // Assert status
-        $response->assertResponseStatus(403);
-        // Assert Json
-        $response->seeJson(["Wrong API Key"]);
     }
 }

@@ -22,5 +22,5 @@ $router->group(["prefix" => "/api", "middleware" => ["api_key"]], function () us
     $router->get('/items/{id}',['uses' => '\App\Http\Controllers\ItemController@show']);
     $router->post('/items',['uses' => '\App\Http\Controllers\ItemController@store']);
     $router->put('/items/{id}',['uses' => '\App\Http\Controllers\ItemController@update']);
-    $router->delete('/items/{id}',['uses' => '\App\Http\Controllers\ItemController@delete']);
+    $router->delete('/items/{id}',['uses' => '\App\Http\Controllers\ItemController@destroy']);
 });
