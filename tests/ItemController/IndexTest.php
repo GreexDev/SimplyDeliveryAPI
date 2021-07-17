@@ -12,9 +12,9 @@ class IndexTest extends \TestCase
     public function testIndex()
     {
         // Create fake Items
-        $item = $this->createItem('1');
-        $item = $this->createItem('2');
-        $item = $this->createItem('3');
+        $this->createItem('1');
+        $this->createItem('2');
+        $this->createItem('3');
         // Request
         $response = $this->get('/api/items?api_key=ApiKeyExample');
 

@@ -11,7 +11,7 @@ class StoreTest extends \TestCase
 
     /**
      * Test store route
-     * Minimum is provided
+     * Minimum data is provided
      */
     public function testStoreItemMinData()
     {
